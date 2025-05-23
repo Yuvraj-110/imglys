@@ -1,0 +1,23 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main background rectangle with rounded corners -->
+  <rect x="0" y="5" width="180" height="40" rx="8" fill="#6200ea" />
+  
+  <!-- Decorative geometric elements -->
+  <circle cx="30" cy="25" r="10" fill="#bb86fc" />
+  <rect x="50" y="15" width="20" height="20" rx="4" fill="#03dac6" />
+  
+  <!-- Text "imglys" -->
+  <text x="85" y="33" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="white">imglys</text>
+  
+  <!-- Decorative dots representing AI/technology -->
+  <circle cx="160" cy="18" r="2" fill="white" />
+  <circle cx="165" cy="23" r="2" fill="white" />
+  <circle cx="170" cy="18" r="2" fill="white" />
+  <circle cx="165" cy="13" r="2" fill="white" />
+  
+  <!-- Connecting lines between dots -->
+  <line x1="160" y1="18" x2="165" y2="23" stroke="white" stroke-width="1" />
+  <line x1="165" y1="23" x2="170" y2="18" stroke="white" stroke-width="1" />
+  <line x1="170" y1="18" x2="165" y2="13" stroke="white" stroke-width="1" />
+  <line x1="165" y1="13" x2="160" y2="18" stroke="white" stroke-width="1" />
+</svg>

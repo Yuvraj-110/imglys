@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script>
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    // Redirect with query param
+    window.location.href = "index.html?message=login_required";
+  }
+</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+<title>My Profile | Imglys</title>
+<link rel="stylesheet" href="/style/profile.css">
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-pic-wrapper">
+                <img src="/Resource/images/default-avatar.jpg" id="profilePictureDisplay" class="profile-pic" alt="Profile Picture" />
+            </div>
+            <h2>My Profile</h2>
+        </div>
+
+        <div id="profileView" class="profile-view">
+            <div class="profile-info">
+                <div class="info-row">
+                    <strong>Name:</strong>
+                    <span id="nameDisplay">Loading...</span>
+                </div>
+                <div class="info-row">
+                    <strong>Bio:</strong>
+                    <span id="bioDisplay">Fetching bio...</span>
+                </div>
+                <div class="info-row">
+                    <strong>Gender:</strong>
+                    <span id="genderDisplay">—</span>
+                </div>
+                <div class="info-row">
+                    <strong>Age Group:</strong>
+                    <span id="ageGroupDisplay">—</span>
+                </div>
+                <div class="info-row">
+                    <strong>Role:</strong>
+                    <span id="roleDisplay">—</span>
+                </div>
+                <div class="info-row">
+                    <strong>Purpose:</strong>
+                    <span id="purposeDisplay">—</span>
+                </div>
+            </div>
+
+            <div class="plan-section">
+                <h3>Your Plan</h3>
+                <p><strong>Plan Name:</strong> <span id="planName">—</span></p>
+                <p><strong>Features:</strong></p>
+                <ul id="planFeatures" class="plan-features-list"></ul>
+                <button class="upgrade-button" onclick="redirect();">Upgrade Plan</button>
+            </div>
+
+            <button class="edit-button" id="editBtn">Edit Profile</button>
+        </div>
+
+        <form id="editProfileForm" class="update-form" enctype="multipart/form-data">
+            <h3>Edit Profile</h3>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" />
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="profilePicture">Profile Picture:</label>
+                <input type="file" id="profilePicture" name="profilePicture" />
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="button-group" data-name="gender">
+                    <button type="button" data-value="Male">Male</button>
+                    <button type="button" data-value="Female">Female</button>
+                    <button type="button" data-value="Other">Other</button>
+                    <button type="button" data-value="Prefer Not to Say">Prefer Not to Say</button>
+                </div>
+                <input type="hidden" name="gender" id="gender">
+            </div>
+            <div class="form-group">
+                <label>Age Group:</label>
+                <div class="button-group" data-name="ageGroup">
+                    <button type="button" data-value="Under 18">Under 18</button>
+                    <button type="button" data-value="18–24">18–24</button>
+                    <button type="button" data-value="25–34">25–34</button>
+                    <button type="button" data-value="35–50">35–50</button>
+                    <button type="button" data-value="50+">50+</button>
+                </div>
+                <input type="hidden" name="ageGroup" id="ageGroup">
+            </div>
+            <div class="form-group">
+                <label>Role:</label>
+                <div class="button-group" data-name="role">
+                    <button type="button" data-value="Content Creator">Content Creator</button>
+                    <button type="button" data-value="Marketer">Marketer</button>
+                    <button type="button" data-value="Researcher">Researcher</button>
+                    <button type="button" data-value="Casual Browser">Casual Browser</button>
+                    <button type="button" data-value="Other">Other</button>
+                </div>
+                <input type="hidden" name="role" id="role">
+            </div>
+            <div class="form-group">
+                <label>Purpose:</label>
+                <div class="button-group" data-name="purpose">
+                    <button type="button" data-value="Content Inspiration">Content Inspiration</button>
+                    <button type="button" data-value="Brand Monitoring">Brand Monitoring</button>
+                    <button type="button" data-value="Research">Research</button>
+                    <button type="button" data-value="Personal Use">Personal Use</button>
+                    <button type="button" data-value="Other">Other</button>
+                </div>
+                <input type="hidden" name="purpose" id="purpose">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+            </div>
+
+            <p id="statusMessage"></p>
+        </form>
+
+<span id="loader" class="custom-loader" style="display: none;">Loading</span>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                window.location.href = "index.html?message=login_required";
+                return;
+            }
+
+            const form = document.getElementById("editProfileForm");
+            const statusMsg = document.getElementById("statusMessage");
+            const loader = document.getElementById("loader");
+
+            const nameDisplay = document.getElementById("nameDisplay");
+            const bioDisplay = document.getElementById("bioDisplay");
+            const profilePic = document.getElementById("profilePictureDisplay");
+
+            const genderDisplay = document.getElementById("genderDisplay");
+            const ageGroupDisplay = document.getElementById("ageGroupDisplay");
+            const roleDisplay = document.getElementById("roleDisplay");
+            const purposeDisplay = document.getElementById("purposeDisplay");
+
+            function setButtonGroup(name, value) {
+                const group = document.querySelector(`.button-group[data-name="${name}"]`);
+                const hidden = document.getElementById(name);
+                if (!group || !hidden) return;
+
+                group.querySelectorAll("button").forEach(btn => {
+                    if (btn.getAttribute("data-value") === value) {
+                        btn.classList.add("selected");
+                    } else {
+                        btn.classList.remove("selected");
+                    }
+                });
+                hidden.value = value;
+            }
+function loadProfile() {
+    fetch("http://localhost:5000/api/profile/me", {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json();
+        })
+        .then(data => {
+            nameDisplay.textContent = data.name || "No Name";
+            bioDisplay.textContent = data.bio || "No bio available";
+            genderDisplay.textContent = data.gender || "—";
+            ageGroupDisplay.textContent = data.ageGroup || "—";
+            roleDisplay.textContent = data.role || "—";
+            purposeDisplay.textContent = data.purpose || "—";
+
+            const imagePath = data.profilePicture;
+            profilePic.src = imagePath?.startsWith("http")
+                ? imagePath
+                : `http://localhost:5000/${imagePath || "/Resource/images/default-avatar.jpg"}`;
+
+            document.getElementById("name").value = data.name || "";
+            document.getElementById("bio").value = data.bio || "";
+            setButtonGroup("gender", data.gender);
+            setButtonGroup("ageGroup", data.ageGroup);
+            setButtonGroup("role", data.role);
+            setButtonGroup("purpose", data.purpose);
+
+            // PLAN NAME AND FEATURES
+    document.getElementById("planName").textContent = data.plan || "Free";
+
+    const featuresList = document.getElementById("planFeatures");
+    featuresList.innerHTML = "";
+
+    const features = data.planFeatures; // ← FIXED
+    if (features) {
+        for (const [key, value] of Object.entries(features)) {
+            let formatted = "";
+            if (Array.isArray(value)) {
+                formatted = `${key}: ${value.join(", ")}`;
+            } else if (typeof value === "boolean") {
+                formatted = `${key}: ${value ? "Yes" : "No"}`;
+            } else {
+                formatted = `${key}: ${value}`;
+            }
+            const li = document.createElement("li");
+            li.textContent = formatted;
+            featuresList.appendChild(li);
+        }
+    }
+        })
+        .catch(err => {
+            console.error("Failed to load profile:", err);
+            nameDisplay.textContent = "Failed to load profile";
+            bioDisplay.textContent = "Failed to load bio";
+            genderDisplay.textContent = "Error";
+            ageGroupDisplay.textContent = "Error";
+            roleDisplay.textContent = "Error";
+            purposeDisplay.textContent = "Error";
+            document.getElementById("planName").textContent = "Error";
+            document.getElementById("planFeatures").innerHTML = "<li>Failed to load features</li>";
+        });
+}
+
+
+            loadProfile();
+
+            document.querySelectorAll(".button-group").forEach(group => {
+                const hidden = group.nextElementSibling;
+                group.querySelectorAll("button").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        group.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+                        btn.classList.add("selected");
+                        hidden.value = btn.getAttribute("data-value");
+                    });
+                });
+            });
+
+            document.getElementById("profilePicture").addEventListener("change", function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        profilePic.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.getElementById("editBtn").addEventListener("click", () => {
+                document.getElementById("profileView").style.display = "none"; // Hide view
+                form.style.display = "block"; // Show form
+            });
+
+            document.getElementById("cancelBtn").addEventListener("click", () => {
+                form.style.display = "none"; // Hide form
+                document.getElementById("profileView").style.display = "block"; // Show view
+                statusMsg.textContent = "";
+                // Optionally reload profile view data here if needed
+                loadProfile();
+            });
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+
+                loader.style.display = "block";
+                statusMsg.textContent = "";
+                statusMsg.style.color = "";
+
+                try {
+                    const res = await fetch("http://localhost:5000/api/profile", {
+                        method: "PUT",
+                        headers: { Authorization: `Bearer ${token}` },
+                        body: formData
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        statusMsg.textContent = "✅ Profile updated!";
+                        statusMsg.style.color = "green";
+                        // After successful update, show the profile view again
+                        loader.style.display = "none";
+                       setTimeout(() => {
+                        window.location.href = "main.html";
+                        }, 1000); // 1 second delay
+
+                    } else {
+                        statusMsg.textContent = data.message || "Update failed!";
+                        statusMsg.style.color = "red";
+                        loader.style.display = "none";
+                    }
+                } catch (err) {
+                    console.error(err);
+                    statusMsg.textContent = "Something went wrong!";
+                    statusMsg.style.color = "red";
+                    loader.style.display = "none";
+                }
+            });
+
+            // Simple redirect function for the upgrade button
+            function redirect() {
+                // Replace 'upgrade.html' with the actual URL of your upgrade page
+                window.location.href = "plan.html";
+            }
+            window.redirect = redirect; // Make redirect function globally accessible
+        });
+    </script>
+</body>
+</html>

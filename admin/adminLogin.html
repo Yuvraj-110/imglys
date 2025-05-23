@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login - Media Engine</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; height: 100vh; justify-content: center; align-items: center; background: #f0f0f0; }
+    .login-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); width: 300px; }
+    input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
+    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .error { color: red; margin-top: 10px; }
+  </style>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+</head>
+<body>
+  <div class="login-container">
+    <h2>Admin Login</h2>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button id="loginBtn">Login</button>
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script>
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        document.getElementById('errorMsg').textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      try {
+        const res = await fetch('http://localhost:5000/api/users/login', { // Adjust URL to your login API
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.token) {
+          // Save token and redirect to admin dashboard
+          localStorage.setItem('token', data.token);
+
+          // Optional: verify admin role from user info (if returned)
+          if(data.user && data.user.role === 'admin'){
+            window.location.href = './admin.html'; 
+          } else {
+            document.getElementById('errorMsg').textContent = 'Access denied: Not an admin.';
+          }
+        } else {
+          document.getElementById('errorMsg').textContent = data.message || 'Login failed';
+        }
+      } catch (err) {
+        document.getElementById('errorMsg').textContent = 'Server error. Please try again.';
+      }
+    });
+  </script>
+
+
+ <script>
+            const params = new URLSearchParams(window.location.search);
+            const msg = params.get("message");
+
+            if (msg === "login_required") {
+               Toastify({
+                  text: "🚫 Please login to continue.",
+                  duration: 3000,
+                  close: true,
+                  gravity: "top", // top or bottom
+                  position: "center", // left, center or right
+                  backgroundColor: "#ff4d4f",
+                  stopOnFocus: true, // Prevents dismissing of toast on hover
+               }).showToast();
+            }
+            </script>
+</body>
+</html>

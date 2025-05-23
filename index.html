@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Imglys - Media Search Engine</title>
+      <link rel="stylesheet" href="/style/index.css">
+      <link rel="stylesheet" href="/style/LoginStyle.css">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/icon" href="/Resource/images/icon.png">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+
+     
+     
+      <!-- Toastify CSS & JS-->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+      <meta name="description" content="Imglys is a full-fledged media search engine with powerful AI tools to enhance your creative workflow.">
+   </head>
+   <body>
+
+
+      <!-- Navbar -->
+      <nav class="navbar">
+         <div class="container">
+            <div class="logo">
+               <img src="/Resource/images/icon.png" alt="">
+               <a href="/">
+               <span class="logo-text">Imglys</span>
+               </a>
+            </div>
+            <div class="nav-links">
+               <a href="#why-choose-us" class="nav-link">Features</a>
+               <a href="#ai-tools" class="nav-link">AI Tools</a>
+               <a href="plan.html" class="nav-link">Pricing</a>
+               <a href="about.html" class="nav-link">About</a>
+            </div>
+            <div class="auth-buttons">
+   <button id="openLoginBtn" class="btn btn-text">Log in</button>
+   <button id="openSignupBtn" class="btn btn-primary">Sign up</button>
+</div>
+
+            <button class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+            </button>
+            <div class="mobile-menu" id="mobileMenu">
+               <a href="#why-choose-us" class="mobile-nav-link">Features</a>
+               <a href="#ai-tools" class="mobile-nav-link">AI Tools</a>
+               <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+               <a href="#" class="mobile-nav-link">About</a>
+               <div class="mobile-auth-buttons">
+                   <button id="openLoginBtn" class="btn btn-text">Log in</button>
+   <button id="openSignupBtn" class="btn btn-primary">Sign up</button>
+</div>
+            </div>
+         </div>
+      </nav>
+      <!-- Hero Section with Video Background -->
+      <header class="hero">
+         <div class="video-background">
+            <video autoplay muted loop playsinline>
+               <source src="/Resource/Backgrounds/mmm.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+         </div>
+         <div class="container">
+            <div class="hero-content">
+               <div class="hero-text">
+                  <h1 class="animate-fade-in">Explore & Innovate with <span class="accent">Exceptional Media</span></h1>
+                  <p>Imglys is a comprehensive media search platform powered by advanced AI tools—designed to streamline your creative journey and empower your vision.</p>
+                  <div class="hero-buttons">
+                     <button id="openAuthModal" class="btn btn-primary btn-lg">Get Started</button>
+                     <button class="btn btn-outline btn-lg" id="exploreBtn">Explore Features</button>
+                  </div>
+               </div>
+               <div class="scroll-indicator">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="M0,160 C80,200 160,120 240,160 C320,200 400,100 480,160 L480,320 L0,320 Z"></path>
+                  </svg>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- AI Tools Section -->
+      <section class="ai-tools" id="ai-tools">
+         <div class="container">
+            <div class="section-header">
+               <h2>Powerful AI Tools</h2>
+               <p>Enhance your creative workflow with our suite of powerful AI-powered tools</p>
+            </div>
+            <div class="tools-grid">
+               <div class="tool-card">
+                  <div class="tool-image">
+                     <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Logo Generator Tool">
+                     <div class="image-overlay"></div>
+                  </div>
+                  <div class="tool-content">
+                     <h3>Logo Generator</h3>
+                     <p>Create professional logos with our AI-powered design engine.</p>
+                     <a href="/tools/pages/logo-maker.html" class="tool-link">
+                        Try Now
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <line x1="5" y1="12" x2="19" y2="12"></line>
+                           <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                     </a>
+                  </div>
+               </div>
+               <div class="tool-card">
+                  <div class="tool-image">
+                     <img src="/Resource/card/background-Rem.jpg">
+                     <div class="image-overlay"></div>
+                  </div>
+                  <div class="tool-content">
+                     <h3>Background Remover</h3>
+                     <p>Remove backgrounds from images with just one click.</p>
+                     <a href="/tools/pages/bg-remover.html" class="tool-link">
+                        Try Now
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <line x1="5" y1="12" x2="19" y2="12"></line>
+                           <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                     </a>
+                  </div>
+               </div>
+               <div class="tool-card">
+                  <div class="tool-image">
+                     <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Prompt to Image Tool">
+                     <div class="image-overlay"></div>
+                  </div>
+                  <div class="tool-content">
+                     <h3>Prompt to Image</h3>
+                     <p>Turn your text descriptions into stunning visual content.</p>
+                     <a href="/tools/pages/prompt-to-image.html" class="tool-link">
+                        Try Now
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <line x1="5" y1="12" x2="19" y2="12"></line>
+                           <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                     </a>
+                  </div>
+               </div>
+               <div class="tool-card">
+                  <div class="tool-image">
+                     <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Image Enhancer Tool">
+                     <div class="image-overlay"></div>
+                  </div>
+                  <div class="tool-content">
+                     <h3>Reverse Image Search</h3>
+                     <p>Search for Similar Images.</p>
+                     <a href="/tools/pages/reverse-search.html" class="tool-link">
+                        Try Now
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <line x1="5" y1="12" x2="19" y2="12"></line>
+                           <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                     </a>
+                  </div>
+               </div>
+               <div class="tool-card more-tools-card">
+                  <div class="tool-content center">
+                     <h3>Explore More Tools</h3>
+                     <p>Discover additional AI features to boost your creativity.</p>
+                     <a href="/tools/tools.html" class="tool-link">
+                        View All
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <line x1="5" y1="12" x2="19" y2="12"></line>
+                           <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Why Choose Us Section -->
+      <section id="why-choose-us" class="why-choose-us">
+         <div class="container">
+            <h2 class="section-title">Why Choose Us?</h2>
+            <p class="section-description">We stand out because of our dedication to innovation, design excellence, and top-tier user experience. Here’s why we’re the best choice:</p>
+            <div class="features-grid">
+               <div class="feature-card">
+                  <div class="feature-icon">
+                     <i class="fas fa-cogs"></i>
+                  </div>
+                  <h3 class="feature-title">Innovative Tools</h3>
+                  <p class="feature-description">We offer cutting-edge tools powered by AI to make your work easier and more efficient.</p>
+               </div>
+               <div class="feature-card">
+                  <div class="feature-icon">
+                     <i class="fas fa-user-shield"></i>
+                  </div>
+                  <h3 class="feature-title">Security & Privacy</h3>
+                  <p class="feature-description">Your data is always safe with us. We implement top-notch security measures for complete peace of mind.</p>
+               </div>
+               <div class="feature-card">
+                  <div class="feature-icon">
+                     <i class="fas fa-headset"></i>
+                  </div>
+                  <h3 class="feature-title">24/7 Customer Support</h3>
+                  <p class="feature-description">Our team is available around the clock to assist you with any queries or issues.</p>
+               </div>
+               <div class="feature-card">
+                  <div class="feature-icon">
+                     <i class="fas fa-cloud"></i>
+                  </div>
+                  <h3 class="feature-title">Cloud-Based</h3>
+                  <p class="feature-description">Access our platform from anywhere, anytime, with cloud-based solutions that offer seamless integration.</p>
+               </div>
+               <!-- New Feature Cards -->
+               <div class="feature-card">
+                  <div class="feature-icon">
+                     <i class="fas fa-laptop"></i>
+                  </div>
+                  <h3 class="feature-title">User-Friendly Interface</h3>
+                  <p class="feature-description">Our platform is designed for simplicity, making it easy for anyone to search and manage media without a learning curve.</p>
+               </div>
+               <div class="feature-card">
+                  <div class="feature-icon">
+                     <i class="fas fa-tachometer-alt"></i>
+                  </div>
+                  <h3 class="feature-title">Fast Performance</h3>
+                  <p class="feature-description">With optimized performance and fast load times, you can search and download media in an instant.</p>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Call to Action Section -->
+      <section class="cta">
+         <div class="cta-bg">
+            <div class="cta-blob cta-blob-1"></div>
+            <div class="cta-blob cta-blob-2"></div>
+         </div>
+         <div class="container">
+            <div class="cta-content">
+               <div class="sparkles-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                     <path d="M5 3v4"/>
+                     <path d="M19 17v4"/>
+                     <path d="M3 5h4"/>
+                     <path d="M17 19h4"/>
+                  </svg>
+               </div>
+               <h2>Ready to Transform Your Creative Workflow?</h2>
+               <p>Join thousands of creators using Imglys to discover, create, and enhance media content with our powerful AI tools.</p>
+               <div class="cta-buttons">
+                 <button id="openSignupCTA" class="btn btn-primary btn-lg">Sign Up Free</button>
+                  <button class="btn btn-outline-white btn-lg">Learn More</button>
+               </div>
+               <div class="cta-note">No credit card required • Free plan available • Cancel anytime</div>
+            </div>
+         </div>
+      </section>
+      <!-- Footer -->
+      <footer class="footer">
+         <!-- Footer Background -->
+         <div class="footer-background">
+            <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" class="footer-wave">
+               <path fill="#1a1a1a" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,213.3C672,224,768,224,864,213.3C960,203,1056,181,1152,176C1248,171,1344,171,1392,176C1440,181,1488,203,1536,224L1536,320L1488,320C1440,320,1344,320,1248,320C1152,320,1056,320,960,320C864,320,768,320,672,320C576,320,480,320,384,320C288,320,192,320,96,320C48,320,0,320Z"></path>
+            </svg>
+         </div>
+         <!-- Main Footer Content -->
+         <div class="container2">
+            <div class="footer-top">
+               <!-- Footer Brand Section -->
+               <div class="footer-brand">
+                  <div class="logo">
+                     <img src="/Resource/images/icon.png" alt="">
+                     <span class="logo-text">Imglys</span>
+                  </div>
+                  <p class="brand-description">Discover, create, and enhance amazing media content</p>
+               </div>
+               <!-- Footer Links Section -->
+               <div class="footer-links">
+                  <!-- Product Links -->
+                  <div class="footer-column">
+                     <h4>Product</h4>
+                     <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">AI Tools</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                     </ul>
+                  </div>
+                  <!-- Company Links -->
+                  <div class="footer-column">
+                     <h4>Company</h4>
+                     <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                     </ul>
+                  </div>
+                  <!-- Resources Links -->
+                  <div class="footer-column">
+                     <h4>Resources</h4>
+                     <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">API Docs</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Status</a></li>
+                     </ul>
+                  </div>
+                  <!-- Legal Links -->
+                  <div class="footer-column">
+                     <h4>Legal</h4>
+                     <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Cookies</a></li>
+                        <li><a href="#">Licenses</a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Footer Bottom Section -->
+         <div class="footer-bottom">
+            <div class="copyright">
+               &copy; 2025 Imglys. All rights reserved.
+            </div>
+            <div class="social-links">
+               <a href="#" aria-label="Twitter">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                  </svg>
+               </a>
+               <a href="#" aria-label="Facebook">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                  </svg>
+               </a>
+               <a href="#" aria-label="Instagram">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                  </svg>
+               </a>
+               <a href="#" aria-label="LinkedIn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                     <rect width="4" height="12" x="2" y="9"/>
+                     <circle cx="4" cy="4" r="2"/>
+                  </svg>
+               </a>
+            </div>
+         </div>
+      </footer>
+      <div id="authModal" class="auth-modal hidden">
+         <div class="auth-modal-content">
+            <button id="closeModalBtn">&times;</button>
+            <div id="notification"></div>
+            <main class="container2" role="main">
+               <!-- Left Panel -->
+               <section class="left" aria-label="Website Info">
+                  <div class="branding">
+                     <img src="/Resource/images/icon.png" alt="Website Logo" class="logo" />
+                     <h2>Welcome to <span class="highlight">Imglys</span></h2>
+                     <p class="tagline">Explore smart media search<br />& creative tools.</p>
+                  </div>
+                  <div class="social-icons" aria-label="Social Links">
+                     <a href="#" aria-label="Facebook"><img src="/Resource/images/Facebook.png" alt="Facebook Icon" /></a>
+                     <a href="#" aria-label="X (Twitter)"><img src="/Resource/images/X.png" alt="Twitter Icon" /></a>
+                     <a href="#" aria-label="Instagram"><img src="/Resource/images/Instagram.png" alt="Instagram Icon" /></a>
+                  </div>
+               </section>
+               <!-- Right Panel -->
+               <section class="right" aria-label="User Authentication">
+                  <div class="form-container">
+                     <!-- Login Form -->
+                     <form id="loginForm" class="form login-form active" aria-label="Login Form" novalidate>
+                        <h2>Login</h2>
+                        <input type="email" id="loginEmail" placeholder="Email" aria-label="Email" required />
+                        <input type="password" id="loginPassword" placeholder="Password" aria-label="Password" required />
+                        <div class="auth-row">
+                           <input type="text" id="codeInput" maxlength="4" placeholder="Enter Code" aria-label="Auth Code" required />
+                           <div id="generatedCode" class="code-box">0000</div>
+                        </div>
+                        <a href="forgot-password.html" class="forgot-password" id="forgotPasswordLink">Forgot Password?</a>
+                        <button type="submit">Login</button>
+                        <p>Don't have an account? <span id="switchToSignup" tabindex="0">Sign Up</span></p>
+                        <button type="button" id="checkProtectedBtn">Check Protected Route</button>
+                     </form>
+                     <!-- Signup Form -->
+                     <form id="signupForm" class="form signup-form" aria-label="Signup Form" novalidate>
+                        <h2>Sign Up</h2>
+                        <input type="text" id="signupName" placeholder="Full Name" aria-label="Full Name" required />
+                        <input type="email" id="signupEmail" placeholder="Email" aria-label="Email" required />
+                        <input type="password" id="signupPassword" placeholder="Password" aria-label="Password" required />
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" required />
+                        <div id="passwordStrengthMeterContainer">
+                           <div id="passwordStrengthMeter"></div>
+                        </div>
+                        <div id="passwordFeedback"></div>
+                        <div id="confirmPasswordFeedback"></div>
+                        <button type="submit">Sign Up</button>
+                        <span id="signupStatus" style="color: blue; display: none;">Signing up...</span>
+                        <p>Already have an account? <span id="switchToLogin" tabindex="0">Login</span></p>
+                     </form>
+                  </div>
+               </section>
+            </main>
+         </div>
+      </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const authModal = document.getElementById('authModal');
+    const loginForm = document.querySelector('.login-form');
+    const signupForm = document.querySelector('.signup-form');
+
+    // CTA Sign Up
+    const ctaSignup = document.getElementById('openSignupCTA');
+    if (ctaSignup) {
+      ctaSignup.addEventListener('click', () => {
+        authModal.classList.remove('hidden');
+        signupForm.classList.add('active');
+        loginForm.classList.remove('active');
+      });
+    }
+
+    // Auth Bar Sign Up
+    const headerSignup = document.getElementById('openSignupBtn');
+    if (headerSignup) {
+      headerSignup.addEventListener('click', () => {
+        authModal.classList.remove('hidden');
+        signupForm.classList.add('active');
+        loginForm.classList.remove('active');
+      });
+    }
+
+    // Auth Bar Log In
+    const headerLogin = document.getElementById('openLoginBtn');
+    if (headerLogin) {
+      headerLogin.addEventListener('click', () => {
+        authModal.classList.remove('hidden');
+        loginForm.classList.add('active');
+        signupForm.classList.remove('active');
+      });
+    }
+  });
+</script>
+
+
+      <script>
+               const modal = document.getElementById('authModal');
+               const openBtn = document.getElementById('openAuthModal');
+               const closeBtn = document.getElementById('closeModalBtn');
+               
+               openBtn.addEventListener('click', () => {
+                 modal.classList.remove('hidden'); // Show modal
+               });
+               
+               closeBtn.addEventListener('click', () => {
+                 modal.classList.add('hidden'); // Hide modal
+               });
+               
+               window.addEventListener('click', (e) => {
+                 if (e.target === modal) {
+                   modal.classList.add('hidden'); // Click outside = close
+                 }
+               });
+            </script>
+
+          <script>
+            const params = new URLSearchParams(window.location.search);
+            const msg = params.get("message");
+
+            if (msg === "login_required") {
+               Toastify({
+                  text: "🚫 Please login to continue.",
+                  duration: 3000,
+                  close: true,
+                  gravity: "top", // top or bottom
+                  position: "center", // left, center or right
+                  backgroundColor: "#ff4d4f",
+                  stopOnFocus: true, // Prevents dismissing of toast on hover
+               }).showToast();
+            }
+            </script>
+
+
+
+      <script src="Js/LoginScript.js" defer></script>
+      <script src="/Js/index.js"></script>
+   </body>
+</html>

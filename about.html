@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <script>
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    // Redirect with query param
+    window.location.href = "index.html?message=login_required";
+  }
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Imglys - Media Search Engine</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+
+
+    :root {
+      --color-primary: #4f46e5;
+      --color-secondary: #10b981;
+      --color-accent: #f97316;
+      --color-text: #1f2937;
+      --color-muted: #6b7280;
+      --color-bg: #f9fafb;
+      --color-bg-dark: #1f2937;
+      --color-white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      padding: 3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .about-container {
+      max-width: 900px;
+      width: 100%;
+      padding: 2rem;
+      background: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+
+    .paragraph {
+      font-size: 1.125rem;
+      color: var(--color-text);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .features-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 1.5rem;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      color: var(--color-muted);
+      font-size: 1rem;
+    }
+
+    .features-list i {
+      color: var(--color-primary);
+    }
+
+    .button {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 2rem;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background: #4338ca;
+    }
+
+    .go-back {
+      margin-top: 3rem;
+      font-size: 1rem;
+      color: var(--color-muted);
+      text-decoration: none;
+    }
+
+    .go-back:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .about-container {
+        padding: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .paragraph {
+        font-size: 1rem;
+      }
+
+      .features-list li {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>About Imglys</h1>
+  <div class="about-container">
+    <p class="paragraph">
+      Welcome to <strong>Imglys</strong> – a modern, AI-powered media search engine designed to revolutionize the way you access and manage creative content. Whether you’re a designer, marketer, student, or casual user, Imglys helps you find the right media for your projects quickly and efficiently.
+    </p>
+    
+    <h2 class="section-title">What Makes Imglys Special?</h2>
+    <ul class="features-list">
+      <li><i class="fas fa-image"></i> Easy image and media search</li>
+      <li><i class="fas fa-cogs"></i> AI-powered background removal tool</li>
+      <li><i class="fas fa-magic"></i> AI-based logo maker for quick branding assets</li>
+      <li><i class="fas fa-filter"></i> Advanced filtering, preview, and download options</li>
+      <li><i class="fas fa-credit-card"></i> Premium features with secure subscription options</li>
+      <li><i class="fas fa-lock"></i> Safe and secure payment gateway</li>
+    </ul>
+
+    <p class="paragraph">
+      Our mission is to make media discovery fast, easy, and enjoyable. With Imglys, you can spend less time searching and more time creating. We’re committed to continually improving and adding new tools to enhance your experience and make your creative process even more efficient.
+    </p>
+    
+    <a href="index.html" class="button">Go Back to Home</a>
+    <p class="go-back"><a href="index.html">Back to Homepage</a></p>
+  </div>
+
+</body>
+</html>

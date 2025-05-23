@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script>
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    // Redirect with query param
+    window.location.href = "adminLogin.html?message=login_required";
+  }
+</script>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Media Engine</title>
+  <link rel="stylesheet" href="/admin/adminStyle.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+</head>
+<body>
+
+  <div id="global-spinner" style="
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255,255,255,0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+">
+  <div class="spinner"></div>
+</div>
+
+  <div class="admin-container">
+    <aside class="sidebar">
+      <h2>Im Admin</h2>
+      <ul>
+        <li onclick="showSection('dashboard')">Dashboard</li>
+        <li onclick="showSection('users')">Users</li>
+        <li onclick="showSection('media')">Media</li>
+        <li onclick="showSection('plans')">Plans</li>
+        <li onclick="showSection('feedbacks')">Feedback</li>
+        <li onclick="showSection('settings')">Settings</li>
+        <li><button id="logoutBtn" style="position:fixed; top:10px; right:10px;">Logout</button></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <!-- Dashboard -->
+      <section id="dashboard" class="admin-section active">
+        <h1>Overview</h1>
+        <div class="cards" id="dashboard-stats">
+          <!-- Stats will load here -->
+        </div>
+      </section>
+
+      <!-- Users -->
+      <section id="users" class="admin-section">
+        <h1>User Management</h1>
+        <table id="user-table">
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Role</th> <th>Date Joined</th><th>Plan</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <!-- Media -->
+      <section id="media" class="admin-section">
+        <h1>Media Management</h1>
+        <div id="media-list"></div>
+      </section>
+
+      <!-- Plans -->
+      <section id="plans" class="admin-section">
+        <h1>Subscription Plans</h1>
+        <div id="plan-list"></div>
+      </section>
+
+      <!-- Feedback -->
+      <section id="feedbacks" class="admin-section">
+        <h2>User Feedback</h2>
+        <div id="feedback-list">Loading...</div> 
+      </section>
+
+      <!-- Settings -->
+      <section id="settings" class="admin-section">
+        <h1>Settings & Logs</h1>
+        <p>Coming soon...</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+<div id="toast" style="position: fixed; bottom: 20px; right: 20px; background-color: #333; color: #fff; padding: 12px 16px; border-radius: 4px; display: none; z-index: 999;">
+  <span id="toast-message"></span>
+</div>
+
+
+  <script src="/admin/adminJs.js"></script>
+ <script>
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'adminLogin.html'; // or wherever your login page is
+      });
+  </script>
+</body>
+</html>

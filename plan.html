@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <script>
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    // Redirect with query param
+    window.location.href = "index.html?message=login_required";
+  }
+</script>
+
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imglys Subscription Plans</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <!-- Toastify CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <!-- Toastify JS -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="stylesheet" href="/style/plan.css" />
+</head>
+
+<body>
+  <!-- Current Plan Section -->
+  <section id="plan-section" hidden>
+    <h2>Your Current Plan</h2>
+    <p id="current-plan">Loading...</p>
+    <button id="upgrade-button" style="display: none;">Upgrade Plan</button>
+  </section>
+
+  <section class="subscription-plans">
+    <div class="video-bg">
+      <video autoplay muted loop playsinline>
+        <source src="/Resource/Backgrounds/mmm.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <!-- Go Back Button -->
+    <button class="go-back-btn" onclick="window.history.back()">Go Back</button>
+
+    <div class="content">
+      <h1>Plans & Subscriptions</h1>
+      <div class="plans">
+        <!-- Free Plan -->
+        <div class="card">
+          <h2>Free</h2>
+          <p class="price">$0 / mo</p>
+          <ul>
+            <li><i class="fas fa-search"></i>20 searches/day</li>
+            <li><i class="fas fa-download"></i>Medium quality downloads</li>
+            <li><i class="fas fa-palette"></i>Limited illustrations & AI tools</li>
+            <li><i class="fas fa-ad"></i>Ads supported</li>
+            <li><i class="fas fa-magic"></i>1-2 AI tools (e.g., BG remover)</li>
+          </ul>
+          <button>Select</button>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="card">
+          <h2>Pro</h2>
+          <p class="price">$9.99 / mo</p>
+          <ul>
+            <li><i class="fas fa-search"></i>100 searches/day</li>
+            <li><i class="fas fa-download"></i>High quality downloads</li>
+            <li><i class="fas fa-shapes"></i>Access to illustrations & AI tools</li>
+            <li><i class="fas fa-ban"></i>No ads</li>
+            <li><i class="fas fa-pencil-ruler"></i>Prompt generator, logo maker</li>
+            <li><i class="fas fa-history"></i>7-day download history</li>
+          </ul>
+          <button>Select</button>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="card">
+          <h2>Premium</h2>
+          <p class="price">$29.99 / mo</p>
+          <ul>
+            <li><i class="fas fa-infinity"></i>Unlimited searches</li>
+            <li><i class="fas fa-download"></i>Original/HD downloads</li>
+            <li><i class="fas fa-tools"></i>All AI tools & templates</li>
+            <li><i class="fas fa-tachometer-alt"></i>Priority search speed</li>
+            <li><i class="fas fa-history"></i>30+ day download history</li>
+            <li><i class="fas fa-code"></i>API access + analytics</li>
+            <li><i class="fas fa-headset"></i>Priority support</li>
+          </ul>
+          <button>Select</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const res = await fetch("http://localhost:5000/api/profile/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        const plan = data.plan || "Free";
+        const formattedPlan = plan.charAt(0).toUpperCase() + plan.slice(1).toLowerCase();
+
+        document.getElementById("current-plan").textContent = `You are currently on the ${formattedPlan} plan.`;
+
+        const upgradeButton = document.getElementById("upgrade-button");
+        if (["free", "pro"].includes(plan.toLowerCase())) {
+          upgradeButton.style.display = "inline-block";
+        }
+
+        document.querySelectorAll(".plans .card").forEach((card) => {
+          const cardPlan = card.querySelector("h2").textContent.trim().toLowerCase();
+          const button = card.querySelector("button");
+
+          if (cardPlan === plan.toLowerCase()) {
+            button.textContent = "Selected";
+            button.disabled = true;
+            button.style.backgroundColor = "#6b7280";
+            button.style.cursor = "not-allowed";
+            card.style.border = "2px solid #10b981";
+          }
+        });
+      }
+    } catch (err) {
+      console.error("Failed to load plan info", err);
+      document.getElementById("current-plan").textContent = "Failed to load plan info.";
+    }
+  });
+
+  // Razorpay payment initiation
+  async function initiatePayment(planName, amountInRupees) {
+    const token = localStorage.getItem("token");
+    const response = await fetch("/api/payment/create-order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({ amount: amountInRupees, planName }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to create order");
+    }
+
+    const { order, key } = await response.json();
+
+    const options = {
+      key,
+      amount: order.amount,
+      currency: "INR",
+      name: "Imglys",
+      description: `Subscription for ${planName}`,
+      order_id: order.id,
+      handler: async function (response) {
+        try {
+          // Save transaction in DB
+          await fetch("/api/payment/confirm", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+              orderId: response.razorpay_order_id,
+              paymentId: response.razorpay_payment_id,
+              amount: order.amount / 100, // Convert paise to rupees
+              planName,
+            }),
+          });
+
+          // Update user plan
+          await fetch("/api/profile/plan", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({ planName }),
+          });
+
+          Toastify({
+            text: "Payment successful & plan upgraded!",
+            duration: 3000,
+            backgroundColor: "#10b981",
+          }).showToast();
+
+          setTimeout(() => window.location.reload(), 1500);
+        } catch (err) {
+          console.error("Error after payment:", err);
+          Toastify({
+            text: "Payment done, but something failed. Please contact support.",
+            duration: 4000,
+            backgroundColor: "#ef4444",
+          }).showToast();
+        }
+      },
+      theme: {
+        color: "#4f46e5",
+      },
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+  }
+
+  // Button click handlers for each plan
+  document.querySelectorAll(".plans .card button").forEach((btn, index) => {
+    btn.addEventListener("click", async () => {
+      const plans = ["free", "pro", "premium"];
+      const selectedPlan = plans[index];
+      const originalText = btn.textContent;
+
+      btn.innerHTML = `<span class="spinner"></span> Loading...`;
+      btn.disabled = true;
+
+      try {
+        if (selectedPlan === "free") {
+          // Instantly upgrade to Free plan without payment
+          const res = await fetch("/api/profile/plan", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: JSON.stringify({ planName: selectedPlan }),
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message);
+
+          Toastify({
+            text: "Plan updated to Free!",
+            duration: 3000,
+            backgroundColor: "#10b981",
+          }).showToast();
+
+          setTimeout(() => window.location.reload(), 1500);
+        } else if (selectedPlan === "pro") {
+          await initiatePayment("pro", 999); // ₹9.99 * 100 = 999 paise
+        } else if (selectedPlan === "premium") {
+          await initiatePayment("premium", 2999); // ₹29.99 * 100 = 2999 paise
+        }
+      } catch (err) {
+        Toastify({
+          text: err.message || "Something went wrong. Please try again.",
+          duration: 3000,
+          backgroundColor: "#ef4444",
+        }).showToast();
+
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    });
+  });
+</script>
+</body>
+</html>

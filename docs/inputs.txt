@@ -1,0 +1,4 @@
+username: yuvraj501
+key : nPsLqCTx7ooHoKIM
+mongodb+srv://yuvraj501:<nPsLqCTx7ooHoKIM>@imglysdb.4wtq1u4.mongodb.net/
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWIzMDliMzY0OWNlZTJjZTU4YmQ0YyIsImlhdCI6MTc0NjYyNDQ5MCwiZXhwIjoxNzQ2NjI4MDkwfQ.I9YOpyt9_f9oQlUimiHFHuTNWyZhZSQUxDpZbHlt9bM

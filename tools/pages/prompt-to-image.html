@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    // Redirect with query param
+    window.location.href = "../../index.html?message=login_required";
+  }
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt to Image - imglys</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="navbar">
+          <div class="navbar-container">
+            <div class="navbar-brand">
+              <a href="index.html" class="d-flex align-items-center">
+                <img src="/Resource/images/icon.png" alt="imglys Logo">
+                <span class="logo-text">imglys</span>
+              </a>
+            </div>
+            <ul class="navbar-nav">
+              <li>
+                <a href="index.html" class="nav-link active">Home</a>
+              </li>
+              <li>
+                <a href="pages/reverse-search.html" class="nav-link">Reverse Search</a>
+              </li>
+              <li>
+                <a href="pages/bg-remover.html" class="nav-link">BG Remover</a>
+              </li>
+              <li>
+                <a href="pages/logo-maker.html" class="nav-link">Logo Maker</a>
+              </li>
+              <li>
+                <a href="pages/prompt-to-image.html" class="nav-link">Prompt to Image</a>
+              </li>
+            </ul>
+            <div class="dropdown ms-auto">
+              <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img id="navbar-profile-pic" src="https://via.placeholder.com/32" alt="profile" class="rounded-circle me-2" width="32" height="32">
+                <span id="navbar-username" class="fw-semibold">Loading...</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="/pages/account.html">My Account</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="logout-btn">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Tool Header -->
+        <section class="tool-header">
+            <div class="container">
+                <h1 class="tool-title">Prompt to Image</h1>
+                <p class="tool-description">Transform your text descriptions into stunning images using our advanced AI image generation technology.</p>
+            </div>
+        </section>
+
+        <!-- Tool Content -->
+        <section class="section">
+            <div class="container">
+                <div class="tool-container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3>Describe Your Image</h3>
+                            <div class="form-group">
+                                <label for="prompt-input" class="form-label">What would you like to create?</label>
+                                <textarea id="prompt-input" class="form-control" rows="4" placeholder="E.g., A serene mountain landscape with a lake at sunset, with purple and orange sky, photorealistic style"></textarea>
+                            </div>
+                            
+                            <h3 class="mt-4">Choose Art Styles</h3>
+                            <p class="text-muted">Select one or more styles to influence the generation</p>
+                            <div class="style-options">
+                                <div class="style-option selected" data-style="realistic">Realistic</div>
+                                <div class="style-option" data-style="digital-art">Digital Art</div>
+                                <div class="style-option" data-style="painting">Painting</div>
+                                <div class="style-option" data-style="anime">Anime</div>
+                                <div class="style-option" data-style="sketch">Sketch</div>
+                                <div class="style-option" data-style="abstract">Abstract</div>
+                                <div class="style-option" data-style="cinematic">Cinematic</div>
+                                <div class="style-option" data-style="3d">3D Render</div>
+                            </div>
+                            
+                            <div class="form-group mt-4">
+                                <label for="negative-prompt" class="form-label">Negative Prompt (Optional)</label>
+                                <input type="text" id="negative-prompt" class="form-control" placeholder="Elements you want to avoid, e.g., blurry, low quality">
+                            </div>
+                            
+                            <div class="mt-4">
+                                <button id="generate-btn" class="btn btn-primary btn-lg">Generate Images</button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <!-- Loading Spinner -->
+                            <div id="loading-spinner" class="loading-spinner">
+                                <div class="spinner"></div>
+                                <p class="mt-3">Generating your images...</p>
+                            </div>
+                            
+                            <!-- Error Message -->
+                            <div id="error-message" class="alert alert-danger mt-3" style="display: none;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Container -->
+                    <div id="result-container" class="result-container">
+                        <h3>Generated Images</h3>
+                        <p>Click on any image to view full size and download</p>
+                        <div id="generated-images" class="generated-images"></div>
+                    </div>
+                </div>
+                
+                <!-- Features Section -->
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h3>Features</h3>
+                        <div class="row mt-4">
+                            <div class="col-md-4 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-brain fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Advanced AI Model</h4>
+                                        <p>Powered by state-of-the-art image generation technology</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-palette fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Multiple Styles</h4>
+                                        <p>Generate images in a variety of artistic styles</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-cogs fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Customizable</h4>
+                                        <p>Fine-tune your results with style options and negative prompts</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Usage Tips Section -->
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h3>Tips for Better Prompts</h3>
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-list fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Be Detailed</h4>
+                                        <p>Include specific details about setting, lighting, atmosphere, colors, and subject</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-camera fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Specify Style</h4>
+                                        <p>Include artistic styles like "oil painting", "digital art", or "photorealistic"</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-sun fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Mention Lighting</h4>
+                                        <p>Include details about lighting conditions like "golden hour", "dramatic", or "soft"</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-ban fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Use Negative Prompts</h4>
+                                        <p>Specify what you don't want to see in the image for better results</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="../svg/logo.svg" alt="imglys Logo">
+                        <span class="logo-text">imglys</span>
+                    </div>
+                    <p class="footer-description">
+                        Advanced AI-powered image tools to help you create, edit, and discover images with ease.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Tools</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="reverse-search.html">Reverse Image Search</a></li>
+                        <li class="footer-link"><a href="bg-remover.html">Background Remover</a></li>
+                        <li class="footer-link"><a href="logo-maker.html">AI Logo Maker</a></li>
+                        <li class="footer-link"><a href="prompt-to-image.html">Prompt to Image</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Resources</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">API Documentation</a></li>
+                        <li class="footer-link"><a href="#">Tutorials</a></li>
+                        <li class="footer-link"><a href="#">Blog</a></li>
+                        <li class="footer-link"><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Company</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">About Us</a></li>
+                        <li class="footer-link"><a href="#">Contact</a></li>
+                        <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                        <li class="footer-link"><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 imglys. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+ <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        try {
+          const res = await fetch("http://localhost:5000/api/profile/me", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await res.json();
+          console.log(data);
+          if (res.ok) {
+            // Set username
+            document.getElementById("navbar-username").textContent = data.name;
+            // Set profile picture
+            if (data.profilePicture) {
+              document.getElementById("navbar-profile-pic").src = data.profilePicture;
+            }
+            // Update subscription status text and upgrade button visibility
+            const currentPlan = data.plan || "Free";
+            const formattedPlan = currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1).toLowerCase();
+            subStatusText.textContent = formattedPlan;
+            const plansToShowUpgrade = ["free", "pro"];
+            if (plansToShowUpgrade.includes(currentPlan.toLowerCase())) {
+              upgradeMenuItem.style.display = "block";
+            } else {
+              upgradeMenuItem.style.display = "none";
+            }
+          }
+        } catch (err) {
+          console.error("Profile fetch failed", err);
+        }
+      });
+    </script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="../js/main.js"></script>
+    <script src="../js/tools.js"></script>
+</body>
+</html>

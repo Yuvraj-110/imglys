@@ -1,0 +1,298 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background-color: #f8f4ff; /* Light purple background */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Tools section styles */
+.tools-section {
+  background-color: #fff;
+  padding: 80px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, #8e24aa, #ba68c8); /* Purple gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.section-description {
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Slider container */
+.tools-slider-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(138, 43, 226, 0.15); /* Purple shadow */
+  margin-bottom: 48px;
+}
+
+/* Slider */
+.tools-slider {
+  display: flex;
+  transition: transform 0.5s ease;
+  height: 450px; /* Slightly taller slider */
+}
+
+.tool-slide {
+  flex: 0 0 100%;
+  position: relative;
+  height: 100%;
+}
+
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.slide-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(90%); /* थोड़ा डिम */
+}
+
+.slide-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, transparent 100%); /* Slightly darker overlay */
+}
+
+.slide-content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+  max-width: 550px; /* थोड़ा चौड़ा कंटेंट एरिया */
+}
+
+.tool-icon {
+  background-color: rgba(255, 255, 255, 0.15); /* थोड़ा और अपारदर्शी */
+  backdrop-filter: blur(10px); /* अधिक ब्लर */
+  width: 72px; /* बड़ा आइकन */
+  height: 72px; /* बड़ा आइकन */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.tool-icon i {
+  font-size: 30px; /* बड़ा आइकन */
+  color: #ba68c8; /* Purple icon color */
+}
+
+.slide-content h3 {
+  font-size: 36px; /* बड़ी हेडिंग */
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.slide-content p {
+  opacity: 0.9; /* अधिक अपारदर्शी टेक्स्ट */
+  margin-bottom: 32px;
+  font-size: 1.1rem; /* थोड़ी बड़ी फ़ॉन्ट साइज */
+}
+
+.try-button {
+  background-color: #ba68c8; /* Purple button */
+  color: white;
+  border: none;
+  padding: 12px 24px; /* बड़ा बटन */
+  border-radius: 8px; /* अधिक गोल बटन */
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out; /* स्मूथ ट्रांजिशन */
+  box-shadow: 0 4px 8px rgba(138, 43, 226, 0.2); /* हल्का शैडो */
+}
+
+.try-button:hover {
+  background-color: #9c27b0; /* गहरा पर्पल */
+  transform: scale(1.05); /* हल्का सा बड़ा होने पर */
+  box-shadow: 0 6px 12px rgba(138, 43, 226, 0.3);
+}
+
+/* Navigation arrows */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 48px; /* बड़े तीर */
+  height: 48px; /* बड़े तीर */
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3); /* थोड़ा अधिक अपारदर्शी */
+  backdrop-filter: blur(6px);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.nav-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%) scale(1.1); /* हल्का सा बड़ा होने पर */
+}
+
+.nav-prev {
+  left: 24px; /* थोड़ी अधिक दूरी */
+}
+
+.nav-next {
+  right: 24px; /* थोड़ी अधिक दूरी */
+}
+
+/* Indicator dots */
+.indicator-dots {
+  position: absolute;
+  bottom: 32px; /* थोड़ी नीचे */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px; /* थोड़ी अधिक दूरी */
+  z-index: 20;
+}
+
+.indicator-dot {
+  width: 10px; /* बड़े डॉट्स */
+  height: 10px; /* बड़े डॉट्स */
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5); /* थोड़ा अधिक अपारदर्शी */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.indicator-dot.active {
+  background-color: white;
+}
+
+/* Tools grid */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 32px; /* अधिक गैप */
+  margin-top: 60px; /* अधिक मार्जिन */
+}
+
+/* Tool card */
+.tool-card {
+  background-color: white;
+  border-radius: 12px; /* अधिक गोल कार्ड */
+  box-shadow: 0 6px 16px rgba(138, 43, 226, 0.08); /* हल्का पर्पल शैडो */
+  padding: 32px; /* अधिक पैडिंग */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.tool-card:hover {
+  box-shadow: 0 10px 25px rgba(138, 43, 226, 0.15); /* गहरा पर्पल शैडो */
+  transform: translateY(-5px); /* हल्का सा ऊपर उठने पर */
+}
+
+.card-icon {
+  width: 60px; /* बड़ा आइकन */
+  height: 60px; /* बड़ा आइकन */
+  background-color: #f3e5f5; /* हल्का पर्पल बैकग्राउंड */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #8e24aa; /* गहरा पर्पल आइकन कलर */
+  font-size: 24px; /* बड़ा आइकन */
+}
+
+.card-icon i {
+  font-size: inherit;
+}
+
+.tool-card h3 {
+  font-size: 20px; /* थोड़ी बड़ी हेडिंग */
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.tool-card p {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.explore-button {
+  margin-top: auto;
+  background-color: transparent;
+  color: #8e24aa; /* गहरा पर्पल टेक्स्ट */
+  border: 1px solid #ba68c8; /* पर्पल बॉर्डर */
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.explore-button:hover {
+  background-color: #f3e5f5; /* हल्का पर्पल बैकग्राउंड */
+  color: #6a1b9a; /* और गहरा पर्पल टेक्स्ट */
+  border-color: #9c27b0;
+}
+
+/* Media queries */
+@media (min-width: 768px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .tools-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .tools-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

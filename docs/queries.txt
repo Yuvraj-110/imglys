@@ -1,0 +1,139 @@
+•	Users Table: Stores user details such as: o	
+user_id (Primary Key, Auto Increment)
+o	name (VARCHAR) 
+o	email (VARCHAR, Unique) o	password (VARCHAR, Encrypted) o	subscription_status (ENUM: Free, Pro) Generate sql query
+ChatGPT said:
+Here is the SQL query to create the Users table with the specified constraints:
+
+sql
+Copy
+Edit
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    subscription_status ENUM('Free', 'Pro') NOT NULL DEFAULT 'Free'
+);
+This query ensures:
+
+user_id is the primary key and auto-increments.
+email is unique.
+password is stored in an encrypted format (you should hash passwords before storing).
+subscription_status has two allowed values: 'Free' or 'Pro', with 'Free' as the default.
+You said:
+•	Search History Table: Logs user searches with:
+o	search_id (Primary Key, Auto Increment)
+o	user_id (Foreign Key References Users)
+o	search_query (TEXT)
+o	media_type (ENUM: Image, Video, Illustration, Vector, PNG, GIF, Audio)
+o	timestamp (DATETIME, Default: CURRENT_TIMESTAMP)
+ChatGPT said:
+Here is the SQL query to create the Search_History table with the specified constraints:
+
+sql
+Copy
+Edit
+CREATE TABLE Search_History (
+    search_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    search_query TEXT NOT NULL,
+    media_type ENUM('Image', 'Video', 'Illustration', 'Vector', 'PNG', 'GIF', 'Audio') NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+Explanation:
+search_id is the primary key and auto-increments.
+user_id is a foreign key referencing Users(user_id), ensuring search logs are linked to registered users.
+search_query stores the user’s search text.
+media_type restricts entries to predefined values (Image, Video, Illustration, Vector, PNG, GIF, Audio).
+timestamp records when the search was made, defaulting to the current time.
+ON DELETE CASCADE ensures that if a user is deleted, their search history is also removed.
+You said:
+•	Transactions Table: Manages subscription payments with:
+o	transaction_id (Primary Key, Auto Increment)
+o	user_id (Foreign Key References Users)
+o	payment_status (ENUM: Pending, Completed, Failed)
+o	amount (DECIMAL)
+o	date (DATETIME, Default: CURRENT_TIMESTAMP)
+
+ChatGPT said:
+Here is the SQL query to create the Transactions table:
+
+sql
+Copy
+Edit
+CREATE TABLE Transactions (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    payment_status ENUM('Pending', 'Completed', 'Failed') NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+Explanation:
+transaction_id is the primary key and auto-increments.
+user_id is a foreign key referencing Users(user_id), linking transactions to users.
+payment_status stores the transaction state (Pending, Completed, or Failed).
+amount is stored as a DECIMAL(10,2) to handle currency values.
+date records the timestamp of the transaction, defaulting to the current time.
+ON DELETE CASCADE ensures that if a user is deleted, their transactions are also removed.
+You said:
+o	plan_id (Primary Key, Auto Increment)
+o	plan_name (VARCHAR)
+o	price (DECIMAL)
+o	features (TEXT)
+ChatGPT said:
+Here is the SQL query to create the Plans table:
+
+sql
+Copy
+Edit
+CREATE TABLE Plans (
+    plan_id INT AUTO_INCREMENT PRIMARY KEY,
+    plan_name VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    features TEXT NOT NULL
+);
+Explanation:
+plan_id is the primary key and auto-increments.
+plan_name stores the name of the subscription plan.
+price is stored as DECIMAL(10,2) to handle monetary values.
+features allows storing details about the plan's benefits.
+You said:
+•	Media Assets Table: Stores metadata about fetched media:
+o	media_id (Primary Key, Auto Increment)
+o	user_id (Foreign Key References Users)
+o	media_url (TEXT)
+o	media_type (ENUM: Image, Video, Illustration, Vector, PNG, GIF, Audio)
+o	source_api (VARCHAR)
+o	timestamp (DATETIME, Default: CURRENT_TIMESTAMP)
+ChatGPT said:
+Here is the SQL query to create the Media_Assets table:
+
+sql
+Copy
+Edit
+CREATE TABLE Media_Assets (
+    media_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    media_url TEXT NOT NULL,
+    media_type ENUM('Image', 'Video', 'Illustration', 'Vector', 'PNG', 'GIF', 'Audio') NOT NULL,
+    source_api VARCHAR(255) NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+Explanation:
+media_id is the primary key and auto-increments.
+user_id is a foreign key linking the media to a specific user.
+media_url stores the URL of the fetched media.
+media_type defines the type of media (Image, Video, Illustration, Vector, PNG, GIF, Audio).
+source_api records which API (e.g., Unsplash, Pixabay, Giphy) provided the media.
+timestamp records when the media was fetched, defaulting to the current time.
+ON DELETE CASCADE ensures that if a user is deleted, their associated media records are also removed.
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account Created Successfully</title>
+    <link rel="icon" type="image/icon" href="/Resource/images/icon.png">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: #333;
+    }
+
+    .success-container {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+    }
+
+    .success-container h1 {
+      color: #28a745;
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .success-container p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .success-container a {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .success-container a:hover {
+      background-color: #0056b3;
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <h1>✅ Account Created Successfully!</h1>
+    <p>Your email has been verified. You can now log in to Imglys.</p>
+    <a href="/">Go to Login Page</a>
+    <div class="note">You will be redirected shortly...</div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 3000); // redirect in 5 seconds
+  </script>
+</body>
+</html>

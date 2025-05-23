@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    // Redirect with query param
+    window.location.href = "index.html?message=login_required";
+  }
+</script>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <title>ImgLys - Modern and Minimal</title>
+    <link rel="icon" type="image/icon" href="/Resource/images/icon.png">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/previewStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- spin.js -->
+      <script src="https://cdn.jsdelivr.net/npm/spin.js@4.1.0/spin.min.js"></script>
+  
+    <!-- Toastify CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  
+  </head>
+  <body>
+    <!-- Hero Section with Background Video -->
+    <div class="container">
+      <video autoplay muted loop class="bg-image">
+        <source src="/Resource/Backgrounds/mmm.mp4" type="video/mp4">
+      </video>
+      <div class="black-overlay"></div>
+      <!-- Navbar -->
+      <nav class="navbar">
+        <div class="logo">
+          <img src="/Resource/images/icon.png" alt="Logo" height="50px" width="50px">
+          <h2>imglys</h2>
+        </div>
+        <div class="innerNav">
+          <!-- Desktop Menu -->
+          <ul class="desktop-nav">
+            <li class="dropdown">
+              <span class="explore-btn">Explore <i class="fa-solid fa-caret-down"></i>
+              </span>
+              <ul class="dropdown-menu">
+                <!-- Discover -->
+                <li class="outerLi">
+                  <h4>Discover</h4>
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-fire"></i> Trending
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-hashtag"></i> Popular Tags
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-map"></i> Explore Locations
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-award"></i> Featured Artists
+                    </li>
+                  </ul>
+                </li>
+                <!-- Trending -->
+                <li class="outerLi">
+                  <h4>Trending</h4>
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-chart-line"></i> Top Searches
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-star"></i> Editor's Picks
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-globe"></i> Global Trends
+                    </li>
+                  </ul>
+                </li>
+                <!-- Community -->
+                <li class="outerLi">
+                  <h4>Community</h4>
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-users"></i> Contributors
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-comments"></i> Forums
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-heart"></i> Favorites
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-lightbulb"></i> Tips & Tutorials
+                    </li>
+                  </ul>
+                </li>
+                <!-- About -->
+                <li class="outerLi">
+                  <h4>About</h4>
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-info-circle"></i> About Us
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-newspaper"></i> Blog
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-envelope"></i> Contact
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-lock"></i> Privacy Policy
+                    </li>
+                  </ul>
+                </li>
+                <!-- Social & Contact -->
+                <div class="dropdown-footer">
+                  <div class="social-icons">
+                    <a href="#">
+                      <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#">
+                      <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                    <a href="#">
+                      <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#">
+                      <i class="fa-brands fa-youtube"></i>
+                    </a>
+                  </div>
+                  <div class="contact-email">
+                    <i class="fa-solid fa-envelope"></i> support@imglys.com
+                  </div>
+                </div>
+              </ul>
+            </li>
+            <li>
+              <a id="whitecol" href="/tools/tools.html">Tools</a>
+            </li>
+            <li title="My Collections">
+                  <a href="collections.html">
+                  <i class="fa-solid fa-bookmark" style="color: white;"></i>
+                  </a>
+            </li>
+
+            <li id="loginMenuItem" style="display: none;">
+              <a href="index.html">
+                <i class="fa-solid fa-right-to-bracket"></i> Login </a>
+            </li>
+          </ul>
+
+          <ul class="profileSection">
+            <li>
+              <p id="hello">Hello <i class="fa-solid fa-caret-down"></i>
+              </p>
+              <div class="username" id="navbar-username">User</div>
+            </li>
+            <!-- User Dropdown with Username -->
+            <li class="user-dropdown">
+              <span class="user-icon3">
+                <img id="navbar-profile-pic" src="/Resource/images/default-avatar.jpg" alt="User" style="height: 45px; width: 45px; border-radius: 50%;">
+              </span>
+              <ul class="user-menu">
+                <li class="subscription-status">
+                  <i class="fa-solid fa-crown"></i>
+                  <span id="subStatusText" class="sub-badge">Free</span>
+                </li>
+                <li>
+                  <a href="profile.html">
+                    <i class="fa-solid fa-id-badge"></i> Your Profile </a>
+                </li>
+                <li id="upgradeMenuItem">
+  <a href="plan.html">
+    <i class="fa-solid fa-coins"></i> Upgrade
+  </a>
+</li>
+
+                <li>
+                  <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i> Settings </a>
+                </li>
+    
+    <li>
+    <a href="#" id="deleteAccountBtn" style="color: #dc3545;">
+      <i class="fa-solid fa-user-slash"></i> Delete Account
+    </a>
+  </li>
+
+                <li>
+                  <a href="#" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+      </nav>
+      <!-- Hero Content -->
+      <div class="content">
+        <center>
+          <h1>Your Ultimate Source for Free Stock Media: <br>Photos, Illustrations, Vectors, Videos, Audio & GIFs </h1>
+        </center>
+        <div class="filter-container">
+          <button class="filter-button active" data-filter="all">All</button>
+          <button class="filter-button" data-filter="photos">Photos</button>
+          <button class="filter-button" data-filter="illustrations">Illustrations</button>
+          <button class="filter-button" data-filter="vectors">Vectors</button>
+          <button class="filter-button" data-filter="videos">Videos</button>
+          <button class="filter-button" data-filter="audio">Audios</button>
+          <button class="filter-button" data-filter="gifs">GIFs</button>
+        </div>
+        <!-- Search Area -->
+        <div class="search-area" id="mainSearch">
+          <input type="search" id="s1" placeholder="Search For Free Images, Videos, Music & More..." autocomplete="off">
+          <button id="searchBtn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+        <!-- Trending Tags Section -->
+        <div class="trending-tags">
+          <div class="tags-wrapper">
+            <button class="scroll-btn left-btn">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <!-- Left Arrow -->
+            <div class="tags-container">
+              <ul id="quickLinks" class="tag-list">
+                <!-- Trending tags will be dynamically inserted here -->
+              </ul>
+            </div>
+            <button class="scroll-btn right-btn">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <!-- Right Arrow -->
+          </div>
+        </div>
+
+
+        
+      </div>
+    </div>
+    <!-- Sticky Search Box -->
+    <div class="sticky-search" id="stickySearch">
+      <input type="search" id="stickyInput" placeholder="Search Your Image Here...">
+      <button id="stickySearchBtn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+    <!-- Gallery Section -->
+    <div class="side-title">
+      <h2 id="text2">All Media</h2>
+      <select id="filter">
+        <option value="all">All</option>
+        <option value="editorchoice">Editor's Choice</option>
+        <option value="latest">Latest</option>
+        <option value="popular">Trending</option>
+      </select>
+    </div>
+    <div class="media-gallary" id="g1">
+      <div class="media-items"></div>
+      <div id="bottom-loader" class="dot-loader hidden">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- <button class="button-6" id="load">Load More</button> -->
+    </div>
+    <!-- AI Assistant Icon -->
+    <div id="ai-assistant" class="ai-icon">
+      <p>AI <i class="fa-solid fa-wand-magic-sparkles"></i> TOOLS </p>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 ImgLys. All Rights Reserved.</p>
+    </div>
+
+<!-- OnBoarding Model -->
+    <div id="onboardingModal" class="modal hidden">
+  <div class="modal-content">
+    <h2>Welcome to Imglys 🎉</h2>
+    <form id="onboardingForm">
+  <label>Full Name:</label>
+  <input type="text" name="name" id="onboardingName" required />
+
+  <label>Email:</label>
+  <input type="email" name="email" id="onboardingEmail" readonly required />
+
+  <label>Phone (Optional):</label>
+  <input type="text" name="phone" />
+
+  <label>Gender:</label>
+  <div class="button-group" data-name="gender">
+    <button type="button" data-value="Male">Male</button>
+    <button type="button" data-value="Female">Female</button>
+    <button type="button" data-value="Other">Other</button>
+    <button type="button" data-value="Prefer Not to Say">Prefer Not to Say</button>
+  </div>
+  <input type="hidden" name="gender" required>
+
+  <label>Age Group:</label>
+  <div class="button-group" data-name="ageGroup">
+    <button type="button" data-value="Under 18">Under 18</button>
+    <button type="button" data-value="18–24">18–24</button>
+    <button type="button" data-value="25–34">25–34</button>
+    <button type="button" data-value="35–50">35–50</button>
+    <button type="button" data-value="50+">50+</button>
+  </div>
+  <input type="hidden" name="ageGroup" required>
+
+  <label>Your Role:</label>
+  <div class="button-group" data-name="role">
+    <button type="button" data-value="Content Creator">Content Creator</button>
+    <button type="button" data-value="Marketer">Marketer</button>
+    <button type="button" data-value="Researcher">Researcher</button>
+    <button type="button" data-value="Casual Browser">Casual Browser</button>
+    <button type="button" data-value="Other">Other</button>
+  </div>
+  <input type="hidden" name="role" required>
+
+  <label>Primary Purpose:</label>
+  <div class="button-group" data-name="purpose">
+    <button type="button" data-value="Content Inspiration">Content Inspiration</button>
+    <button type="button" data-value="Brand Monitoring">Brand Monitoring</button>
+    <button type="button" data-value="Research">Research</button>
+    <button type="button" data-value="Personal Use">Personal Use</button>
+    <button type="button" data-value="Other">Other</button>
+  </div>
+  <input type="hidden" name="purpose" required>
+
+  <label>Profile Picture:</label>
+  <input type="file" name="profilePicture" id="profilePicture" accept="image/*" />
+  <img id="previewImage" src="" style="width: 80px; display: none; margin-bottom: 15px;" />
+
+  <label>
+    <input type="checkbox" id="agreeTOS" required />
+    I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a>
+  </label>
+
+  <button type="submit" id="onboardingSubmit" disabled>Proceed</button>
+</form>
+
+  </div>
+</div>
+
+
+<!-- Collection Modal -->
+<div id="collectionModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h3>Save to Collection</h3>
+
+    <label for="existingCollections">Choose a collection</label>
+    <select id="existingCollections">
+      <option value="">-- Select an existing collection --</option>
+    </select>
+
+    <div class="separator">or</div>
+
+    <input type="text" id="collectionNameInput" placeholder="Enter new collection name" />
+    <button id="saveToCollectionBtn">Save</button>
+  </div>
+</div>
+
+
+
+<!-- Feedback Modal -->
+<div class="feedback-modal" id="feedbackModal">
+  <form id="feedbackForm">
+    <h3>We value your feedback</h3>
+
+    <label for="feedbackMessage">Your message:</label>
+    <textarea id="feedbackMessage" required></textarea>
+
+    <label>Your rating:</label>
+    <div class="stars" id="starRating">
+      <span class="star" data-value="1">&#9734;</span>
+      <span class="star" data-value="2">&#9734;</span>
+      <span class="star" data-value="3">&#9734;</span>
+      <span class="star" data-value="4">&#9734;</span>
+      <span class="star" data-value="5">&#9734;</span>
+    </div>
+
+    <div class="buttons">
+      <button type="submit" id="submitBtn">Submit</button>
+      <button type="button" id="skipFeedbackBtn">Not Now</button>
+    </div>
+
+    <div class="spinner" id="spinner" style="display: none;"></div>
+  </form>
+</div>
+
+
+
+    <!-- Scripts -->
+     <script src="/Js/onBoard.js"></script>
+    <script src="/Js/script.js"></script>
+    <script src="/Js/navi.js"></script>
+    <script src="/Js/smoothScroll.js"></script>
+    <script src="/Js/searchOnGallary.js"></script>
+    <script src="/Js/change.js"></script>
+    <script src="/Js/mainBackend.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/4.0.1/placeholders.min.js" integrity="sha512-3dWmvVq5KDeVcTwONnv+MKNPQphfE4MjRbIMUP0vtWW6wW1zwEcOZGajKeWo1qQIdBKfwLTaIHRBVJB+8j/ZUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/partials/deleteAcc.js"></script>
+    
+    <script>
+      const dropdown = document.querySelector('.dropdown');
+      const exploreBtn = document.querySelector('.explore-btn');
+      // Toggle dropdown on button click
+      exploreBtn.addEventListener('click', (event) => {
+        dropdown.classList.toggle('active');
+        event.stopPropagation(); // Prevent it from closing immediately
+      });
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (event) => {
+        if (!dropdown.contains(event.target)) {
+          dropdown.classList.remove('active');
+        }
+      });
+    </script>
+
+
+    <script>
+      const bars = document.getElementById('bars');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+      const closeBtn = document.getElementById('closeBtn');
+      bars.addEventListener('click', () => {
+        mobileOverlay.style.display = 'block';
+      });
+      closeBtn.addEventListener('click', () => {
+        mobileOverlay.style.display = 'none';
+      });
+    </script>
+
+
+    <script>
+      // Desktop user dropdown
+      document.querySelector('.user-icon3')?.addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.querySelector('.user-dropdown').classList.toggle('active');
+      });
+      // Close dropdown when clicking outside (desktop)
+      window.addEventListener('click', function() {
+        document.querySelector('.user-dropdown')?.classList.remove('active');
+      });
+      // Mobile user dropdown
+      const mobileUserToggle = document.querySelector('.mobile-user-toggle');
+      if (mobileUserToggle) {
+        mobileUserToggle.addEventListener('click', () => {
+          document.querySelector('.mobile-user-dropdown').classList.toggle('active');
+        });
+      }
+    </script>
+
+
+<script>
+  let selectedRating = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+  const stars = document.querySelectorAll(".star");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      showFeedbackModal();
+    });
+  }
+
+  // Star rating logic
+  stars.forEach((star) => {
+    star.addEventListener("click", () => {
+      selectedRating = parseInt(star.getAttribute("data-value"));
+      stars.forEach((s, i) => {
+        s.classList.toggle("selected", i < selectedRating);
+      });
+    });
+  });
+});
+
+function showFeedbackModal() {
+  document.getElementById("feedbackModal").style.display = "block";
+}
+
+const form = document.getElementById("feedbackForm");
+const spinner = document.getElementById("spinner");
+const submitBtn = document.getElementById("submitBtn");
+const skipBtn = document.getElementById("skipFeedbackBtn");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  showSpinner(true);
+
+  const message = document.getElementById("feedbackMessage").value;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/feedbacks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ message, rating: selectedRating }),
+    });
+
+    showSpinner(false);
+
+    if (res.ok) {
+      alert("Thanks for your feedback!");
+      finishLogout();
+    } else {
+      const data = await res.json();
+      alert(data.message || "Failed to submit feedback.");
+    }
+  } catch (err) {
+    showSpinner(false);
+    console.error("Error submitting feedback:", err);
+    alert("Server error. Try again later.");
+  }
+});
+
+skipBtn.addEventListener("click", () => {
+  showSpinner(true);
+  setTimeout(() => {
+    showSpinner(false);
+    finishLogout();
+  }, 800); // simulate delay
+});
+
+function showSpinner(show) {
+  spinner.style.display = show ? "block" : "none";
+  submitBtn.disabled = show;
+  skipBtn.disabled = show;
+}
+
+function finishLogout() {
+  localStorage.removeItem("token");
+  window.location.href = "index.html";
+}
+
+</script>
+<script>
+document.querySelector("#collectionModal .close-btn").addEventListener("click", () => {
+  document.getElementById("collectionModal").classList.add("hidden");
+
+  // Optional: Reset fields
+  document.getElementById("collectionNameInput").value = "";
+  document.getElementById("existingCollections").value = "";
+});
+
+</script>
+
+  </body>
+</html>

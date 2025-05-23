@@ -1,0 +1,208 @@
+
+    :root {
+      --color-primary: #4f46e5;
+      --color-secondary: #10b981;
+      --color-accent: #f97316;
+      --color-text: #1f2937;
+      --color-muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fafb;
+      color: var(--color-text);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    section.subscription-plans {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.363);
+    }
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(8px) brightness(1);
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4); /* slight dark overlay */
+    }
+
+    .go-back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--color-primary);
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .go-back-btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      color: white;
+      z-index: 1;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      width: 100%;
+      padding: 1rem;
+      z-index: 1;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      border-top: 4px solid var(--color-primary);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 1rem;
+      flex-grow: 1;
+    }
+
+    ul li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-muted);
+      font-size: 0.95rem;
+    }
+
+    ul li i {
+      color: var(--color-primary);
+    }
+
+    button {
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+
+    .card:nth-child(2) {
+      border-top-color: var(--color-secondary);
+    }
+    .card:nth-child(2) .price,
+    .card:nth-child(2) ul li i {
+      color: var(--color-secondary);
+    }
+
+    .card:nth-child(3) {
+      border-top-color: var(--color-accent);
+    }
+    .card:nth-child(3) .price,
+    .card:nth-child(3) ul li i {
+      color: var(--color-accent);
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+      .price {
+        font-size: 1.5rem;
+      }
+      .card h2 {
+        font-size: 1.25rem;
+      }
+    }
+
+    .spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

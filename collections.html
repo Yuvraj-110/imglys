@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script>
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    // Redirect with query param
+    window.location.href = "index.html?message=login_required";
+  }
+</script>
+
+  <meta charset="UTF-8" />
+  <title>My Collections | Imglys</title>
+  <link rel="stylesheet" href="/style/collections.css" />
+  <link rel="icon" type="image/png" href="/Resource/images/icon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+  <!-- Reuse Navbar -->
+  <div id="navbar-container"></div>
+
+  <!-- Header -->
+  <section class="collections-header">
+    <h1>📁 My Collections</h1>
+    <p>Your saved media will appear here. You can organize, delete, or download them anytime.</p>
+  </section>
+
+  <!-- Collection Display -->
+  <div class="collection-gallery" id="collectionGallery">
+    <!-- JS will populate this -->
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-message hidden" id="emptyMessage">
+    <p><i class="fa-solid fa-folder-open"></i><br>No items saved yet.</p>
+    <a href="main.html" class="back-btn">Browse Media</a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/Js/collections.js"></script>
+</body>
+</html>

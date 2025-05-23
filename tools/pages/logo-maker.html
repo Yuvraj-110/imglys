@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    // Redirect with query param
+    window.location.href = "../../index.html?message=login_required";
+  }
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Logo Maker - imglys</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+     <header class="header">
+      <div class="container">
+        <nav class="navbar">
+          <div class="navbar-container">
+            <div class="navbar-brand">
+              <a href="index.html" class="d-flex align-items-center">
+                <img src="/Resource/images/icon.png" alt="imglys Logo">
+                <span class="logo-text">imglys</span>
+              </a>
+            </div>
+            <ul class="navbar-nav">
+              <li>
+                <a href="index.html" class="nav-link active">Home</a>
+              </li>
+              <li>
+                <a href="pages/reverse-search.html" class="nav-link">Reverse Search</a>
+              </li>
+              <li>
+                <a href="pages/bg-remover.html" class="nav-link">BG Remover</a>
+              </li>
+              <li>
+                <a href="pages/logo-maker.html" class="nav-link">Logo Maker</a>
+              </li>
+              <li>
+                <a href="pages/prompt-to-image.html" class="nav-link">Prompt to Image</a>
+              </li>
+            </ul>
+            <div class="dropdown ms-auto">
+              <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img id="navbar-profile-pic" src="https://via.placeholder.com/32" alt="profile" class="rounded-circle me-2" width="32" height="32">
+                <span id="navbar-username" class="fw-semibold">Loading...</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="/pages/account.html">My Account</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="logout-btn">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Tool Header -->
+        <section class="tool-header">
+            <div class="container">
+                <h1 class="tool-title">AI Logo Maker</h1>
+                <p class="tool-description">Create professional logos in seconds. Just describe what you want, and our AI will generate unique designs tailored to your needs.</p>
+            </div>
+        </section>
+
+        <!-- Tool Content -->
+        <section class="section">
+            <div class="container">
+                <div class="tool-container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3>Describe Your Logo</h3>
+                            <div class="form-group">
+                                <label for="prompt-input" class="form-label">What kind of logo do you need?</label>
+                                <textarea id="prompt-input" class="form-control" rows="4" placeholder="E.g., A modern technology logo for a software company named TechFlow, with blue and purple colors, minimalist style"></textarea>
+                            </div>
+                            
+                            <h3 class="mt-4">Choose a Style</h3>
+                            <div class="logo-options">
+                                <div class="option-card selected" data-style="modern">
+                                    <i class="fas fa-vector-square fa-2x mb-2"></i>
+                                    <p>Modern</p>
+                                </div>
+                                <div class="option-card" data-style="minimalist">
+                                    <i class="far fa-circle fa-2x mb-2"></i>
+                                    <p>Minimalist</p>
+                                </div>
+                                <div class="option-card" data-style="vintage">
+                                    <i class="fas fa-stamp fa-2x mb-2"></i>
+                                    <p>Vintage</p>
+                                </div>
+                                <div class="option-card" data-style="geometric">
+                                    <i class="fas fa-shapes fa-2x mb-2"></i>
+                                    <p>Geometric</p>
+                                </div>
+                                <div class="option-card" data-style="abstract">
+                                    <i class="fas fa-bezier-curve fa-2x mb-2"></i>
+                                    <p>Abstract</p>
+                                </div>
+                                <div class="option-card" data-style="3d">
+                                    <i class="fas fa-cube fa-2x mb-2"></i>
+                                    <p>3D</p>
+                                </div>
+                            </div>
+                            
+                            <h3 class="mt-4">Primary Color</h3>
+                            <div class="color-picker">
+                                <div class="color-option selected" data-color="purple" style="background-color: #6200ea;"></div>
+                                <div class="color-option" data-color="blue" style="background-color: #2196f3;"></div>
+                                <div class="color-option" data-color="green" style="background-color: #00c853;"></div>
+                                <div class="color-option" data-color="red" style="background-color: #f44336;"></div>
+                                <div class="color-option" data-color="orange" style="background-color: #ff9800;"></div>
+                                <div class="color-option" data-color="teal" style="background-color: #009688;"></div>
+                                <div class="color-option" data-color="pink" style="background-color: #e91e63;"></div>
+                                <div class="color-option" data-color="black" style="background-color: #212121;"></div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <button id="generate-btn" class="btn btn-primary btn-lg">Generate Logo</button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <!-- Loading Spinner -->
+                            <div id="loading-spinner" class="loading-spinner">
+                                <div class="spinner"></div>
+                                <p class="mt-3">Generating your logo...</p>
+                            </div>
+                            
+                            <!-- Error Message -->
+                            <div id="error-message" class="alert alert-danger mt-3" style="display: none;"></div>
+                            
+                            <!-- Results Container -->
+                            <div id="result-container" class="result-container">
+                                <h3>Your Logo</h3>
+                                <div class="text-center mt-4">
+                                    <img id="result-image" class="preview-image">
+                                    <div class="mt-4">
+                                        <button id="download-btn" class="btn btn-primary">
+                                            <i class="fas fa-download"></i> Download Logo
+                                        </button>
+                                        <button id="generate-more-btn" class="btn btn-outline ms-2">
+                                            <i class="fas fa-sync"></i> Generate More
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Features Section -->
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h3>Why Choose Our AI Logo Maker?</h3>
+                        <div class="row mt-4">
+                            <div class="col-md-4 text-center mb-4">
+                                <i class="fas fa-bolt fa-3x mb-3" style="color: var(--primary-color);"></i>
+                                <h4>Fast Creation</h4>
+                                <p>Generate professional logos in seconds instead of waiting days for designers</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <i class="fas fa-fingerprint fa-3x mb-3" style="color: var(--primary-color);"></i>
+                                <h4>Unique Designs</h4>
+                                <p>Every logo is unique and created based on your specific requirements</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <i class="fas fa-sliders-h fa-3x mb-3" style="color: var(--primary-color);"></i>
+                                <h4>Customizable</h4>
+                                <p>Fine-tune your logo with different styles, colors, and variations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Usage Tips Section -->
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h3>Tips for Better Results</h3>
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-lightbulb fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Be Specific</h4>
+                                        <p>Include your company name, industry, preferred colors, and style preferences in your description</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-palette fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Consider Your Brand</h4>
+                                        <p>Think about the emotions and values you want your logo to convey</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-redo fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Try Multiple Variations</h4>
+                                        <p>Generate multiple logos with different styles and colors to find the perfect match</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <i class="fas fa-mobile-alt fa-2x" style="color: var(--primary-color);"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Think About Usage</h4>
+                                        <p>Consider where your logo will be used - websites, business cards, merchandise, etc.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="../svg/logo.svg" alt="imglys Logo">
+                        <span class="logo-text">imglys</span>
+                    </div>
+                    <p class="footer-description">
+                        Advanced AI-powered image tools to help you create, edit, and discover images with ease.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Tools</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="reverse-search.html">Reverse Image Search</a></li>
+                        <li class="footer-link"><a href="bg-remover.html">Background Remover</a></li>
+                        <li class="footer-link"><a href="logo-maker.html">AI Logo Maker</a></li>
+                        <li class="footer-link"><a href="prompt-to-image.html">Prompt to Image</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Resources</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">API Documentation</a></li>
+                        <li class="footer-link"><a href="#">Tutorials</a></li>
+                        <li class="footer-link"><a href="#">Blog</a></li>
+                        <li class="footer-link"><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Company</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">About Us</a></li>
+                        <li class="footer-link"><a href="#">Contact</a></li>
+                        <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                        <li class="footer-link"><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 imglys. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+ <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        try {
+          const res = await fetch("http://localhost:5000/api/profile/me", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await res.json();
+          console.log(data);
+          if (res.ok) {
+            // Set username
+            document.getElementById("navbar-username").textContent = data.name;
+            // Set profile picture
+            if (data.profilePicture) {
+              document.getElementById("navbar-profile-pic").src = data.profilePicture;
+            }
+            // Update subscription status text and upgrade button visibility
+            const currentPlan = data.plan || "Free";
+            const formattedPlan = currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1).toLowerCase();
+            subStatusText.textContent = formattedPlan;
+            const plansToShowUpgrade = ["free", "pro"];
+            if (plansToShowUpgrade.includes(currentPlan.toLowerCase())) {
+              upgradeMenuItem.style.display = "block";
+            } else {
+              upgradeMenuItem.style.display = "none";
+            }
+          }
+        } catch (err) {
+          console.error("Profile fetch failed", err);
+        }
+      });
+    </script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="../js/main.js"></script>
+    <script src="../js/tools.js"></script>
+</body>
+</html>
